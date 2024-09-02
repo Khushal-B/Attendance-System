@@ -85,6 +85,105 @@
             });
 
             if (response.ok) {
+                const data = await response.json();
+                alert('Lecture created successfully!');
+                window.location.href = `/qrcode.html?lecture_id=${data.lecture_id}`;
+            } else {
+                alert('Failed to create lecture. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Lecture | Attendance System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .lecture-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .lecture-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .lecture-container input, .lecture-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .lecture-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .lecture-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="lecture-container">
+        <h2>Create a New Lecture</h2>
+        <input type="text" id="topic" placeholder="Lecture Topic" required>
+        <select id="division" required>
+            <option value="" disabled selected>Select Division</option>
+            <option value="A">Division A</option>
+            <option value="B">Division B</option>
+            <option value="C">Division C</option>
+        </select>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
+        <button onclick="createLecture()">Create Lecture</button>
+    </div>
+
+    <script>
+        // Set the date and time inputs to the current date and time
+        const now = new Date();
+        document.getElementById('date').value = now.toISOString().slice(0, 10);
+        document.getElementById('time').value = now.toTimeString().slice(0, 5);
+
+        async function createLecture() {
+            const topic = document.getElementById('topic').value;
+            const division = document.getElementById('division').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            const response = await fetch('/api/create-lecture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ topic, division, date, time })
+            });
+
+            if (response.ok) {
                 alert('Lecture created successfully!');
                 window.location.href = '/dashboard'; // Redirect to dashboard or appropriate page
             } else {
@@ -93,4 +192,4 @@
         }
     </script>
 </body>
-</html>
+</html> -->

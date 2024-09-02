@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance | Attendance System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .attendance-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .attendance-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .attendance-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .attendance-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .attendance-container button:hover {
+            background-color: #45a049;
+        }
+        .attendance-container .message {
+            margin-top: 20px;
+            font-size: 16px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="attendance-container">
+        <h2>Mark Attendance</h2>
+        <input type="text" id="rollNo" placeholder="Enter Roll Number" required>
+        <input type="hidden" id="lectureId" value="<%= lectureId %>">
+        <button onclick="markAttendance()">Mark Attendance</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        async function markAttendance() {
+            const rollNo = document.getElementById('rollNo').value;
+            const lectureId = document.getElementById('lectureId').value;
+
+            const response = await fetch('/api/mark-attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ rollNo, lectureId })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').style.color = 'green';
+            } else {
+                document.getElementById('message').textContent = data.message;
+                document.getElementById('message').style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>

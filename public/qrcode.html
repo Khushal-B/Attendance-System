@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code | Attendance System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .qrcode-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .qrcode-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .qrcode-container img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="qrcode-container">
+        <h2>Scan this QR Code</h2>
+        <img id="qrcode" src="" alt="QR Code">
+    </div>
+
+    <script>
+        async function fetchQRCode() {
+            const lectureId = new URLSearchParams(window.location.search).get('lecture_id');
+            const response = await fetch(`/api/qrcode/${lectureId}`);
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('qrcode').src = data.qrCodeUrl;
+            } else {
+                alert('Failed to generate QR code. Please try again.');
+            }
+        }
+
+        fetchQRCode();
+    </script>
+</body>
+</html>
