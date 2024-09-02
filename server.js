@@ -22,33 +22,32 @@ db.connect();
 // Login route
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
-  console.log(password);
 
   try {
     const result = await db.query('SELECT * FROM teacher WHERE email_id = $1 AND password = $2', [email, password]);
 
     if (result.rows.length > 0) {
       // Login successful, redirect to lec.html
-      res.redirect('/lec.html');
+      res.json({ success: true });
     } else {
-      // Invalid credentials, redirect back to login page with error message
-      res.redirect('/?error=1');
+      // Invalid credentials
+      res.status(401).json({ success: false, message: 'Wrong credentials, please try again.' });
     }
   } catch (err) {
     console.error('Login error:', err);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ success: false, message: 'Internal server error.' });
   }
 });
 
 // Create lecture route
+// Create lecture route
 app.post('/api/create-lecture', async (req, res) => {
-  const { topic, division, datetime } = req.body;
+  const { topic, division, date, time } = req.body;
   
   try {
     const result = await db.query(
-      'INSERT INTO lecture (teacher_id, topic, division, time, date, qrcode) VALUES ($1, $2, $3, $4::time, $4::date, $5) RETURNING lecture_id',
-      [1, topic, division, datetime, 'generated_qr_code']  // Assuming teacher_id = 1 for simplicity
+      'INSERT INTO lecture (teacher_id, topic, division, date, time, qrcode) VALUES ($1, $2, $3, $4, $5, $6) RETURNING lecture_id',
+      [1, topic, division, date, time, 'generated_qr_code']  // Assuming teacher_id = 1 for simplicity
     );
 
     const lecture_id = result.rows[0].lecture_id;
@@ -65,6 +64,7 @@ app.post('/api/create-lecture', async (req, res) => {
     res.status(500).json({ message: 'Failed to create lecture. Please try again.' });
   }
 });
+
 
 // Handle all other routes by serving the frontend
 app.get('*', (req, res) => {

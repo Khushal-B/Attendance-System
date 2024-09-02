@@ -59,24 +59,29 @@
             <option value="B">Division B</option>
             <option value="C">Division C</option>
         </select>
-        <input type="datetime-local" id="datetime" readonly>
+        <input type="date" id="date" required>
+        <input type="time" id="time" required>
         <button onclick="createLecture()">Create Lecture</button>
     </div>
 
     <script>
-        document.getElementById('datetime').value = new Date().toISOString().slice(0, 16);
+        // Set the date and time inputs to the current date and time
+        const now = new Date();
+        document.getElementById('date').value = now.toISOString().slice(0, 10);
+        document.getElementById('time').value = now.toTimeString().slice(0, 5);
 
         async function createLecture() {
             const topic = document.getElementById('topic').value;
             const division = document.getElementById('division').value;
-            const datetime = document.getElementById('datetime').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
 
             const response = await fetch('/api/create-lecture', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ topic, division, datetime })
+                body: JSON.stringify({ topic, division, date, time })
             });
 
             if (response.ok) {

@@ -55,7 +55,10 @@
     </style>
 </head>
 <body>
+    
     <div class="login-container">
+        <h1>Attendance System</h1>
+        <hr/>
         <h2>Teacher Login</h2>
         <input type="email" id="email" placeholder="Email ID" required>
         <input type="password" id="password" placeholder="Password" required>
@@ -76,15 +79,19 @@
                 body: JSON.stringify({ email, password })
             });
 
-            if (response.ok) {
-                window.location.href = '/create-lecture'; // Assuming you'll have this route handled on the frontend
+            const result = await response.json();
+
+            if (result.success) {
+                window.location.href = '/lec.html';
             } else {
+                document.getElementById('error-message').textContent = result.message;
                 document.getElementById('error-message').style.display = 'block';
             }
         }
     </script>
 </body>
 </html>
+
 
 
 <!-- <!DOCTYPE html>
