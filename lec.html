@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Lecture | Attendance System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .lecture-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .lecture-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .lecture-container input, .lecture-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .lecture-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .lecture-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="lecture-container">
+        <h2>Create a New Lecture</h2>
+        <input type="text" id="topic" placeholder="Lecture Topic" required>
+        <select id="division" required>
+            <option value="" disabled selected>Select Division</option>
+            <option value="A">Division A</option>
+            <option value="B">Division B</option>
+            <option value="C">Division C</option>
+        </select>
+        <input type="datetime-local" id="datetime" readonly>
+        <button onclick="createLecture()">Create Lecture</button>
+    </div>
+
+    <script>
+        document.getElementById('datetime').value = new Date().toISOString().slice(0, 16);
+
+        async function createLecture() {
+            const topic = document.getElementById('topic').value;
+            const division = document.getElementById('division').value;
+            const datetime = document.getElementById('datetime').value;
+
+            const response = await fetch('/api/create-lecture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ topic, division, datetime })
+            });
+
+            if (response.ok) {
+                alert('Lecture created successfully!');
+                window.location.href = '/dashboard'; // Redirect to dashboard or appropriate page
+            } else {
+                alert('Failed to create lecture. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
