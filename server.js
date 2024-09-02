@@ -5,21 +5,29 @@ const path = require('path');
 const QRCode = require('qrcode');
 const os = require('os');
 
+import env from "dotenv";
+
+env.config();
+
+const db = new pg.Client({
+  user:process.env.PG_USER, 
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+});
+
+
+db.connect();
+
 const app = express();
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "Attendence_System",
-  password: "gOOgly12345",
-  port: 5432,
-});
 
-db.connect();
 
 // Function to get the local IP address
 function getIPAddress() {
