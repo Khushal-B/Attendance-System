@@ -57,13 +57,22 @@
 <body>
     <div class="attendance-container">
         <h2>Mark Attendance</h2>
+        <p id="lectureIdDisplay"></p> <!-- Display lectureId here -->
         <input type="text" id="rollNo" placeholder="Enter Roll Number" required>
-        <input type="hidden" id="lectureId" value="<%= lectureId %>">
+        <input type="hidden" id="lectureId">
         <button onclick="markAttendance()">Mark Attendance</button>
         <div class="message" id="message"></div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Extract lectureId from URL
+    const lectureId = new URLSearchParams(window.location.search).get('lecture_id');
+    document.getElementById('lectureId').value = lectureId;
+    document.getElementById('lectureIdDisplay').textContent = `Lecture ID: ${lectureId}`; // Use template literals
+});
+
+
         async function markAttendance() {
             const rollNo = document.getElementById('rollNo').value;
             const lectureId = document.getElementById('lectureId').value;
@@ -89,3 +98,4 @@
     </script>
 </body>
 </html>
+

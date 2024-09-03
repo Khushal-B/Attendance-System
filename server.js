@@ -5,7 +5,7 @@ const path = require('path');
 const QRCode = require('qrcode');
 const os = require('os');
 
-import env from "dotenv";
+const env = require("dotenv");
 
 env.config();
 
@@ -106,11 +106,15 @@ app.get('/api/qrcode/:lecture_id', (req, res) => {
 // Mark attendance route
 app.get('/api/attendance/:lecture_id', (req, res) => {
   const lectureId = req.params.lecture_id;
-  res.sendFile(path.join(__dirname, 'public', 'markAttendance.html'));
+  console.log(lectureId);
+  res.redirect(`/markAttendance.html?lecture_id=${lectureId}`);
 });
+
 
 app.post('/api/mark-attendance', async (req, res) => {
   const { rollNo, lectureId } = req.body;
+  console.log(rollNo);
+  console.log(lectureId);
 
   try {
     const studentResult = await db.query('SELECT * FROM student WHERE roll_no = $1', [rollNo]);
