@@ -104,11 +104,10 @@ app.get('/api/qrcode/:lecture_id', (req, res) => {
 });
 
 // Mark attendance route
-document.addEventListener('DOMContentLoaded', () => {
-  // Extract lectureId from URL
-  const lectureId = new URLSearchParams(window.location.search).get('lecture_id');
-  document.getElementById('lectureId').value = lectureId;
-  document.getElementById('lectureIdDisplay').textContent = `Lecture ID: ${lectureId}`; // Use template literals
+app.get('/api/attendance/:lecture_id', (req, res) => {
+  const lectureId = req.params.lecture_id;
+  console.log(lectureId);
+  res.redirect(`/markAttendance.html?lecture_id=${lectureId}`);
 });
 
 
