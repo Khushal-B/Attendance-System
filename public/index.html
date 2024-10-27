@@ -5,57 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Login | Attendance System</title>
     <style>
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3, #f77d77, #50c3cf);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
+
         .login-container {
-            background-color: #ffffff;
+            background-color:  rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(50px);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 25px; /* Increased border radius */
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2); /* Enhanced shadow for more depth */
+            width: 370px; /* Slightly wider */
             text-align: center;
+            transition: transform 0.3s ease-in-out;
+            
         }
+
+        .login-container:hover {
+            transform: translateY(-5px); /* Subtle hover effect */
+        }
+
+        .login-container h1 {
+            font-size: 26px; /* Increased size */
+            font-weight: 700; /* Bolder font */
+            color: #4c6daf;
+            margin-bottom: 12px;
+        }
+
         .login-container h2 {
+            font-size: 18px;
+            font-weight: 500;
             margin-bottom: 20px;
-            color: #333;
+            color: #555;
         }
+
         .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 92%;
+            padding: 14px; /* Slightly more padding */
+            margin: 12px 0;
+            border: 1px solid #ddd;
+            border-radius: 12px; /* Rounder input fields */
             font-size: 14px;
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
+
+        .login-container input:focus {
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.4); /* Increased shadow */
+            border-color: #4CAF50; /* Green border on focus */
+            outline: none;
+        }
+
         .login-container button {
             width: 100%;
-            padding: 10px;
+            padding: 14px; /* Slightly bigger button */
             border: none;
-            border-radius: 5px;
+            border-radius: 12px; /* Rounder corners */
             background-color: #4CAF50;
             color: white;
             font-size: 16px;
+            font-weight: 600; /* Bolder button text */
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
+
         .login-container button:hover {
             background-color: #45a049;
+            transform: translateY(-3px); /* Hover lift effect */
         }
+
+        .login-container button:active {
+            background-color: #3e8e41;
+        }
+
+        .login-container hr {
+            margin-bottom: 20px;
+            background-color: white;
+        }
+
         .error-message {
             color: red;
             margin-top: 10px;
             display: none;
         }
+
+        /* Small screens adjustments */
+        @media (max-width: 400px) {
+            .login-container {
+                width: 90%;
+            }
+
+            .login-container h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 <body>
-    
+
     <div class="login-container">
         <h1>Attendance System</h1>
         <hr/>

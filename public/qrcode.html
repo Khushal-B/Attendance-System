@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,94 @@
             margin-top: 20px;
             max-width: 100%;
             height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="qrcode-container">
+        <h2>Scan this QR Code</h2>
+        <img id="qrcode" src="" alt="QR Code">
+    </div>
+
+    <script>
+        async function fetchQRCode() {
+            const lectureId = new URLSearchParams(window.location.search).get('lecture_id');
+            const response = await fetch(`/api/qrcode/${lectureId}`);
+
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('qrcode').src = data.qrCodeUrl;
+            } else {
+                alert('Failed to generate QR code. Please try again.');
+            }
+        }
+
+        fetchQRCode();
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code | Attendance System</title>
+    <style>
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3, #f77d77, #50c3cf);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .qrcode-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(50px);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+            width: 370px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .qrcode-container:hover {
+            transform: translateY(-5px); /* Subtle hover effect */
+        }
+
+        .qrcode-container h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #4c6daf;
+            margin-bottom: 12px;
+        }
+
+        .qrcode-container img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd; /* Optional border around QR code */
+            padding: 10px;
+            border-radius: 12px; /* Rounded edges for consistency */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
         }
     </style>
 </head>

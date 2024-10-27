@@ -5,47 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Lecture | Attendance System</title>
     <style>
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #6e8efb, #a777e3, #f77d77, #50c3cf);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
+
         .lecture-container {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(50px);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
             width: 400px;
             text-align: center;
         }
+
         .lecture-container h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #4c6daf;
             margin-bottom: 20px;
-            color: #333;
         }
+
         .lecture-container input, .lecture-container select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 93%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #ddd;
+            border-radius: 12px;
             font-size: 14px;
+            box-sizing: border-box;
+            -webkit-appearance: none; /* Remove default styling */
+            -moz-appearance: none;
+            appearance: none;
+            background-color: white;
+            height: 52px; /* Set a consistent height */
         }
+        .lecture-container select {
+            padding-right: 30px; /* Add padding to avoid overlap with the arrow */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNMTIgNi43bC0xLjQtMS40LTQgNC00LTRMLjUgNmwtLjcgLjcgNiA2IDYtNi0uNy0uN3ptLTIgMGwzLjctMy43IDMuNyAzLjctMy43IDMuN0w3LjUgMy4zeiIvPjwvc3ZnPg==');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        .lecture-container input:focus, .lecture-container select:focus {
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+            border-color: #4CAF50;
+            outline: none;
+        }
+
         .lecture-container button {
-            width: 100%;
-            padding: 10px;
+            width: 80%;
+            margin-top: 10px;
+            padding: 14px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             background-color: #4CAF50;
             color: white;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
+
         .lecture-container button:hover {
             background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .lecture-container button:active {
+            background-color: #3e8e41;
         }
     </style>
 </head>
@@ -95,6 +145,7 @@
     </script>
 </body>
 </html>
+
 
 
 <!-- <!DOCTYPE html>
